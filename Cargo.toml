@@ -1,5 +1,10 @@
 [workspace]
+attestation_registry
 members = ["contracts/attestation", "contracts/attestation-registry"]
+members = [
+    "contracts/attestation",
+    "contracts/integration-registry",
+]
 resolver = "2"
 
 [profile.release]
