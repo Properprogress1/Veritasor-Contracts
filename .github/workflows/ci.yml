@@ -95,6 +95,8 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-cargo-
       
+      - name: Build attestation WASM (snapshot contractimport depends on this file)
+        run: cargo build --release -p veritasor-attestation --target wasm32-unknown-unknown
       - name: Build contracts (release)
         run: |
           cargo build -p veritasor-attestation -p veritasor-audit-log -p veritasor-integration-registry --release --target wasm32-unknown-unknown
