@@ -75,7 +75,7 @@ fn test_release_without_attestation_fails() {
     let env = Env::default();
     env.mock_all_auths();
     env.mock_all_auths_allowing_non_root_auth();
-    let (admin, _stream_id, stream_client, attestation_id, attestation_client, token, beneficiary) =
+    let (admin, _stream_id, stream_client, attestation_id, _attestation_client, token, beneficiary) =
         setup(&env);
     let business = Address::generate(&env);
     let period = String::from_str(&env, "2026-02");
@@ -153,7 +153,7 @@ fn test_get_stream() {
     let env = Env::default();
     env.mock_all_auths();
     env.mock_all_auths_allowing_non_root_auth();
-    let (admin, _stream_id, stream_client, attestation_id, attestation_client, token, beneficiary) =
+    let (admin, _stream_id, stream_client, attestation_id, _attestation_client, token, beneficiary) =
         setup(&env);
     let business = Address::generate(&env);
     let period = String::from_str(&env, "2026-Q1");

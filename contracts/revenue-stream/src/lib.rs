@@ -4,6 +4,7 @@
 //! and is not revoked. Streams are funded at creation; release is gated by
 //! attestation check via cross-contract call.
 
+#![allow(clippy::too_many_arguments)]
 #![no_std]
 use soroban_sdk::{contract, contractimpl, contracttype, token, Address, Env, String};
 use veritasor_attestation::AttestationContractClient;
@@ -39,6 +40,7 @@ pub struct Stream {
 pub struct RevenueStreamContract;
 
 #[contractimpl]
+#[allow(clippy::too_many_arguments)]
 impl RevenueStreamContract {
     pub fn initialize(env: Env, admin: Address) {
         admin.require_auth();
@@ -51,6 +53,7 @@ impl RevenueStreamContract {
 
     /// Create a stream: fund it with `amount` of `token` (transferred from caller).
     /// Release is allowed once attestation (business, period) exists and is not revoked.
+    #[allow(clippy::too_many_arguments)]
     pub fn create_stream(
         env: Env,
         admin: Address,

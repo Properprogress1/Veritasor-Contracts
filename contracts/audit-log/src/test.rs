@@ -24,13 +24,13 @@ fn test_initialize() {
 #[test]
 #[should_panic(expected = "already initialized")]
 fn test_double_initialize() {
-    let (env, client, admin) = setup();
+    let (_env, client, admin) = setup();
     client.initialize(&admin);
 }
 
 #[test]
 fn test_append() {
-    let (env, client, admin) = setup();
+    let (env, client, _admin) = setup();
     let actor = Address::generate(&env);
     let source = Address::generate(&env);
     let seq = client.append(
@@ -51,7 +51,7 @@ fn test_append() {
 
 #[test]
 fn test_append_ordering() {
-    let (env, client, admin) = setup();
+    let (env, client, _admin) = setup();
     let actor = Address::generate(&env);
     let source = Address::generate(&env);
     let s0 = client.append(
@@ -80,7 +80,7 @@ fn test_append_ordering() {
 
 #[test]
 fn test_get_seqs_by_actor() {
-    let (env, client, admin) = setup();
+    let (env, client, _admin) = setup();
     let actor1 = Address::generate(&env);
     let actor2 = Address::generate(&env);
     let source = Address::generate(&env);
@@ -113,7 +113,7 @@ fn test_get_seqs_by_actor() {
 
 #[test]
 fn test_get_seqs_by_contract() {
-    let (env, client, admin) = setup();
+    let (env, client, _admin) = setup();
     let actor = Address::generate(&env);
     let src1 = Address::generate(&env);
     let src2 = Address::generate(&env);
@@ -157,7 +157,7 @@ fn test_empty_logs() {
 
 #[test]
 fn test_empty_payload() {
-    let (env, client, admin) = setup();
+    let (env, client, _admin) = setup();
     let actor = Address::generate(&env);
     let source = Address::generate(&env);
     let seq = client.append(

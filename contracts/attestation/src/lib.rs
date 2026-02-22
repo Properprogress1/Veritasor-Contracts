@@ -38,6 +38,7 @@ pub mod dispute;
 pub struct AttestationContract;
 
 #[contractimpl]
+#[allow(clippy::too_many_arguments)]
 impl AttestationContract {
     // ── Initialization ──────────────────────────────────────────────
 
@@ -251,6 +252,7 @@ impl AttestationContract {
     /// Same as `submit_attestation` but also stores currency code and revenue basis.
     /// * `currency_code` – ISO 4217-style code, e.g. "USD", "EUR". Alphabetic, max 3 chars.
     /// * `is_net` – `true` for net revenue, `false` for gross revenue.
+    #[allow(clippy::too_many_arguments)]
     pub fn submit_attestation_with_metadata(
         env: Env,
         business: Address,
