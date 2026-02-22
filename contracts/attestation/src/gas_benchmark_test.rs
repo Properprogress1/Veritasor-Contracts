@@ -1,5 +1,3 @@
-#![cfg(test)]
-
 //! Gas and cost benchmarks for Veritasor attestation contract.
 //!
 //! This module measures the resource consumption (CPU instructions, memory,
