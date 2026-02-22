@@ -179,6 +179,46 @@ CPU instructions: 156789
 Memory bytes: 4123
 ```
 
+## Sample Output
+
+```
+=== submit_attestation (no fee) ===
+CPU instructions: 35750
+Memory bytes: 5648
+
+=== submit_attestation (with fee) ===
+CPU instructions: 150524
+Memory bytes: 21975
+
+=== verify_attestation ===
+CPU instructions: 0
+Memory bytes: 0
+Note: Cost tracking shows 0 in test environment (expected for simple operations)
+
+=== revoke_attestation ===
+CPU instructions: 9186
+Memory bytes: 3495
+
+=== migrate_attestation ===
+CPU instructions: 18909
+Memory bytes: 3870
+
+=== get_attestation ===
+CPU instructions: 0
+Memory bytes: 0
+Note: Cost tracking shows 0 in test environment (expected for simple operations)
+
+=== submit_attestation batch (n=5) ===
+CPU instructions: 131060
+Memory bytes: 21907
+Average per operation - CPU: 26212, Memory: 4381
+
+=== Comparative: Read vs Write ===
+Write - CPU: 35750, Memory: 5648
+Read  - CPU: 0, Memory: 0
+Ratio - CPU: 35750.00x, Memory: 5648.00x
+```
+
 ## Interpreting Results
 
 ### Normal Operation
