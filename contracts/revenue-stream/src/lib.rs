@@ -11,6 +11,17 @@ use soroban_sdk::{contract, contractimpl, contracttype, token, Address, Env, Str
 /// Attestation client: WASM import for wasm32 (avoids duplicate symbols), crate for tests.
 #[cfg(target_arch = "wasm32")]
 mod attestation_import {
+    // Define type aliases locally to match attestation contract
+    use soroban_sdk::{Address, BytesN, String, Vec};
+    #[allow(dead_code)]
+    pub type AttestationData = (BytesN<32>, u64, u32, i128);
+    #[allow(dead_code)]
+    pub type RevocationData = (Address, u64, String);
+    #[allow(dead_code)]
+    pub type AttestationWithRevocation = (AttestationData, Option<RevocationData>);
+    #[allow(dead_code)]
+    pub type AttestationStatusResult = Vec<(String, Option<AttestationData>, Option<RevocationData>)>;
+    
     // Path from crate dir (contracts/revenue-stream): ../../ = workspace root.
     soroban_sdk::contractimport!(
         file = "../../target/wasm32-unknown-unknown/release/veritasor_attestation.wasm"
