@@ -34,8 +34,9 @@ mod attestation_import {
     #[allow(dead_code)]
     pub type AttestationWithRevocation = (AttestationData, Option<RevocationData>);
     #[allow(dead_code)]
-    pub type AttestationStatusResult = Vec<(String, Option<AttestationData>, Option<RevocationData>)>;
-    
+    pub type AttestationStatusResult =
+        Vec<(String, Option<AttestationData>, Option<RevocationData>)>;
+
     // Path from crate dir (contracts/attestation-snapshot): ../../ = workspace root.
     soroban_sdk::contractimport!(
         file = "../../target/wasm32-unknown-unknown/release/veritasor_attestation.wasm"
