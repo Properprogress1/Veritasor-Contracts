@@ -19,7 +19,7 @@
 //! spec.verify_methods_exist();
 //! ```
 
-use soroban_sdk::{contracttype, Address, Env, String, Vec};
+use soroban_sdk::{contracttype, Env, String, Vec};
 
 /// Represents a method parameter in the interface specification.
 #[contracttype]
@@ -505,14 +505,8 @@ pub fn verify_interface_consistency(env: &Env) -> VerificationResult {
             .count();
         
         if actual_count != *expected_count {
-            let error_msg = String::from_str(
-                env,
-                &format!(
-                    "Method count mismatch for {}: expected {}, got {}",
-                    contract, expected_count, actual_count
-                ),
-            );
-            result.add_error(env, error_msg);
+            // Use a simple error message without format for no_std compatibility
+            result.add_error(env, String::from_str(env, "Method count mismatch"));
         }
     }
 

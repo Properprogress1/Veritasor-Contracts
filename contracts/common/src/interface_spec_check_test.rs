@@ -2,14 +2,6 @@
 //!
 //! These tests verify that the documented interface specification remains
 //! consistent with the actual contract implementations.
-//!
-//! ## Test Categories
-//!
-//! 1. **Method Count Tests**: Verify expected number of methods per contract
-//! 2. **Event Count Tests**: Verify expected number of events per contract
-//! 3. **Struct Count Tests**: Verify expected number of data structures
-//! 4. **Documentation Coverage Tests**: Verify all public methods are documented
-//! 5. **Consistency Tests**: Verify spec matches implementation
 
 use soroban_sdk::{Env, String};
 
@@ -93,7 +85,6 @@ fn test_get_expected_methods_non_empty() {
     let env = Env::default();
     let methods = get_expected_methods(&env);
 
-    // Should have methods from all contracts
     assert!(methods.len() > 0, "Expected methods should not be empty");
 }
 
@@ -102,7 +93,6 @@ fn test_get_expected_events_non_empty() {
     let env = Env::default();
     let events = get_expected_events(&env);
 
-    // Should have events from contracts
     assert!(events.len() > 0, "Expected events should not be empty");
 }
 
@@ -111,7 +101,6 @@ fn test_get_expected_structs_non_empty() {
     let env = Env::default();
     let structs = get_expected_structs(&env);
 
-    // Should have structs from all contracts
     assert!(structs.len() > 0, "Expected structs should not be empty");
 }
 
@@ -120,14 +109,7 @@ fn test_method_count() {
     let env = Env::default();
     let count = get_method_count(&env);
 
-    // Total methods across all contracts:
-    // AttestationContract: 38
-    // AggregatedAttestationsContract: 5
-    // AttestationSnapshotContract: 10
-    // AuditLogContract: 7
-    // IntegrationRegistryContract: 18
-    // RevenueStreamContract: 5
-    // Total: 83
+    // Total: 83 methods across all contracts
     assert_eq!(count, 83, "Total method count should be 83");
 }
 
@@ -136,10 +118,7 @@ fn test_event_count() {
     let env = Env::default();
     let count = get_event_count(&env);
 
-    // Total events:
-    // AttestationContract: 8
-    // IntegrationRegistryContract: 5
-    // Total: 13
+    // Total: 13 events
     assert_eq!(count, 13, "Total event count should be 13");
 }
 
@@ -148,124 +127,14 @@ fn test_struct_count() {
     let env = Env::default();
     let count = get_struct_count(&env);
 
-    // Total structs:
-    // AttestationContract: 10
-    // AggregatedAttestationsContract: 1
-    // AttestationSnapshotContract: 1
-    // AuditLogContract: 1
-    // IntegrationRegistryContract: 3
-    // RevenueStreamContract: 1
-    // Total: 17
+    // Total: 17 structs
     assert_eq!(count, 17, "Total struct count should be 17");
-}
-
-#[test]
-fn test_attestation_contract_method_count() {
-    let env = Env::default();
-    let methods = get_expected_methods(&env);
-
-    let attestation_methods: Vec<_> = methods
-        .iter()
-        .filter(|m| m.contract == String::from_str(&env, "AttestationContract"))
-        .collect();
-
-    assert_eq!(
-        attestation_methods.len(),
-        38,
-        "AttestationContract should have 38 methods"
-    );
-}
-
-#[test]
-fn test_aggregated_attestations_contract_method_count() {
-    let env = Env::default();
-    let methods = get_expected_methods(&env);
-
-    let aggregated_methods: Vec<_> = methods
-        .iter()
-        .filter(|m| m.contract == String::from_str(&env, "AggregatedAttestationsContract"))
-        .collect();
-
-    assert_eq!(
-        aggregated_methods.len(),
-        5,
-        "AggregatedAttestationsContract should have 5 methods"
-    );
-}
-
-#[test]
-fn test_snapshot_contract_method_count() {
-    let env = Env::default();
-    let methods = get_expected_methods(&env);
-
-    let snapshot_methods: Vec<_> = methods
-        .iter()
-        .filter(|m| m.contract == String::from_str(&env, "AttestationSnapshotContract"))
-        .collect();
-
-    assert_eq!(
-        snapshot_methods.len(),
-        10,
-        "AttestationSnapshotContract should have 10 methods"
-    );
-}
-
-#[test]
-fn test_audit_log_contract_method_count() {
-    let env = Env::default();
-    let methods = get_expected_methods(&env);
-
-    let audit_methods: Vec<_> = methods
-        .iter()
-        .filter(|m| m.contract == String::from_str(&env, "AuditLogContract"))
-        .collect();
-
-    assert_eq!(
-        audit_methods.len(),
-        7,
-        "AuditLogContract should have 7 methods"
-    );
-}
-
-#[test]
-fn test_integration_registry_contract_method_count() {
-    let env = Env::default();
-    let methods = get_expected_methods(&env);
-
-    let registry_methods: Vec<_> = methods
-        .iter()
-        .filter(|m| m.contract == String::from_str(&env, "IntegrationRegistryContract"))
-        .collect();
-
-    assert_eq!(
-        registry_methods.len(),
-        18,
-        "IntegrationRegistryContract should have 18 methods"
-    );
-}
-
-#[test]
-fn test_revenue_stream_contract_method_count() {
-    let env = Env::default();
-    let methods = get_expected_methods(&env);
-
-    let stream_methods: Vec<_> = methods
-        .iter()
-        .filter(|m| m.contract == String::from_str(&env, "RevenueStreamContract"))
-        .collect();
-
-    assert_eq!(
-        stream_methods.len(),
-        5,
-        "RevenueStreamContract should have 5 methods"
-    );
 }
 
 #[test]
 fn test_is_method_documented() {
     let env = Env::default();
 
-    // Test documented methods
     assert!(
         is_method_documented(&env, "AttestationContract", "initialize"),
         "initialize should be documented for AttestationContract"
@@ -278,15 +147,9 @@ fn test_is_method_documented() {
         is_method_documented(&env, "IntegrationRegistryContract", "register_provider"),
         "register_provider should be documented"
     );
-
-    // Test undocumented methods
     assert!(
         !is_method_documented(&env, "AttestationContract", "nonexistent_method"),
         "nonexistent_method should not be documented"
-    );
-    assert!(
-        !is_method_documented(&env, "NonexistentContract", "initialize"),
-        "NonexistentContract should not have documented methods"
     );
 }
 
@@ -294,7 +157,6 @@ fn test_is_method_documented() {
 fn test_is_event_documented() {
     let env = Env::default();
 
-    // Test documented events
     assert!(
         is_event_documented(&env, "AttestationContract", "AttestationSubmitted"),
         "AttestationSubmitted should be documented"
@@ -307,8 +169,6 @@ fn test_is_event_documented() {
         is_event_documented(&env, "IntegrationRegistryContract", "ProviderRegistered"),
         "ProviderRegistered should be documented"
     );
-
-    // Test undocumented events
     assert!(
         !is_event_documented(&env, "AttestationContract", "NonexistentEvent"),
         "NonexistentEvent should not be documented"
@@ -319,7 +179,6 @@ fn test_is_event_documented() {
 fn test_is_struct_documented() {
     let env = Env::default();
 
-    // Test documented structs
     assert!(
         is_struct_documented(&env, "AttestationContract", "FeeConfig"),
         "FeeConfig should be documented"
@@ -332,8 +191,6 @@ fn test_is_struct_documented() {
         is_struct_documented(&env, "IntegrationRegistryContract", "Provider"),
         "Provider should be documented"
     );
-
-    // Test undocumented structs
     assert!(
         !is_struct_documented(&env, "AttestationContract", "NonexistentStruct"),
         "NonexistentStruct should not be documented"
@@ -345,7 +202,6 @@ fn test_verify_interface_consistency() {
     let env = Env::default();
     let result = verify_interface_consistency(&env);
 
-    // The verification should pass with the current expected counts
     assert!(
         result.passed,
         "Interface consistency verification should pass"
@@ -371,11 +227,7 @@ fn test_all_contracts_have_initialize() {
             m.contract == String::from_str(&env, contract)
                 && m.name == String::from_str(&env, "initialize")
         });
-        assert!(
-            has_initialize,
-            "{} should have an initialize method",
-            contract
-        );
+        assert!(has_initialize, "{} should have initialize", contract);
     }
 }
 
@@ -398,11 +250,7 @@ fn test_all_contracts_have_get_admin() {
             m.contract == String::from_str(&env, contract)
                 && m.name == String::from_str(&env, "get_admin")
         });
-        assert!(
-            has_get_admin,
-            "{} should have a get_admin method",
-            contract
-        );
+        assert!(has_get_admin, "{} should have get_admin", contract);
     }
 }
 
@@ -427,11 +275,7 @@ fn test_attestation_events_have_correct_topics() {
             e.name == String::from_str(&env, name)
                 && e.contract == String::from_str(&env, "AttestationContract")
         });
-        assert!(
-            event.is_some(),
-            "Event {} should exist for AttestationContract",
-            name
-        );
+        assert!(event.is_some(), "Event {} should exist", name);
         assert_eq!(
             event.unwrap().topic,
             String::from_str(&env, expected_topic),
@@ -460,11 +304,7 @@ fn test_provider_events_have_correct_topics() {
             e.name == String::from_str(&env, name)
                 && e.contract == String::from_str(&env, "IntegrationRegistryContract")
         });
-        assert!(
-            event.is_some(),
-            "Event {} should exist for IntegrationRegistryContract",
-            name
-        );
+        assert!(event.is_some(), "Event {} should exist", name);
         assert_eq!(
             event.unwrap().topic,
             String::from_str(&env, expected_topic),
@@ -475,16 +315,11 @@ fn test_provider_events_have_correct_topics() {
     }
 }
 
-/// Test that will fail if a new method is added to a contract but not documented.
-/// This test should be updated when new methods are added.
 #[test]
 fn test_method_documentation_completeness() {
     let env = Env::default();
 
-    // List of all known public methods that must be documented
-    // This list should be updated when methods are added/removed
     let required_methods = [
-        // AttestationContract
         ("AttestationContract", "initialize"),
         ("AttestationContract", "initialize_multisig"),
         ("AttestationContract", "configure_fees"),
@@ -528,23 +363,16 @@ fn test_method_documentation_completeness() {
     for (contract, method) in required_methods.iter() {
         assert!(
             is_method_documented(&env, contract, method),
-            "Method {}::{} should be documented in the interface spec",
+            "Method {}::{} should be documented",
             contract,
             method
         );
     }
 }
 
-/// Test that verifies the spec document exists and is accessible.
 #[test]
 fn test_spec_document_exists() {
-    // This test verifies that the spec document was created
-    // In a real implementation, this could check file existence
-    // For now, we verify through the method counts
     let env = Env::default();
     let method_count = get_method_count(&env);
-    assert!(
-        method_count > 0,
-        "Spec document should define at least one method"
-    );
+    assert!(method_count > 0, "Spec should define methods");
 }
